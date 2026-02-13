@@ -4,11 +4,10 @@ Projeto em grupo de aplicação do conteúdo do módulo 1 - Manipulando o DOM.
 Este projeto está em constante desenvolvimento, com adição de funcionalidades e páginas, conforme conteúdo abordado.
 
 ## 📗Índice
-## 📗Índice
-- <a href="#Funcionalidades-do-projeto">Funcionalidades do projeto</a>
-- <a href="#layout">Layout</a>
+- <a href="#️funcionalidades-do-projeto">Funcionalidades do projeto</a>
+- <a href="#️layout">Layout</a>
 - <a href="#tecnologias-utilizadas">Tecnologias utilizadas</a>
-- <a href="#pessoas-autoras">Pessoas autoras</a>
+- <a href="#️pessoas-autoras">Pessoas autoras</a>
 
 ## 🖊️Funcionalidades do projeto
 
@@ -22,7 +21,7 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 ## 💻Tecnologias utilizadas
 
 1. HTML
-2. CSSS
+2. CSS
 3. Javascript
 
 ## 🏋️Pessoas Autoras
@@ -37,3 +36,5 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 - [ ] Implementar validação de dados via JS
 - [ ] Salvar a base de cadastros no Local Storage
 - [ ] Renderizar em tela os novos cards cadastrados
+
+[pessoas-autoras]: pessoas-autora
