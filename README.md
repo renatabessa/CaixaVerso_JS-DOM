@@ -8,7 +8,7 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 - <a href="#️layout">Layout</a>
 - <a href="#tecnologias-utilizadas">Tecnologias utilizadas</a>
 - <a href="#️pessoas-autoras">Pessoas autoras</a>
-
+- <a href="#️próximos-passos">Próximos passos</a>
 ## 🖊️Funcionalidades do projeto
 
 - [x] Cadastro de novos Clientes
