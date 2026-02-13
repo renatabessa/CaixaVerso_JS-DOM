@@ -4,10 +4,11 @@ Projeto em grupo de aplicação do conteúdo do módulo 1 - Manipulando o DOM.
 Este projeto está em constante desenvolvimento, com adição de funcionalidades e páginas, conforme conteúdo abordado.
 
 ## 📗Índice
-- <a href="#funcionalidade">Funcionalidades do projeto</a>
+## 📗Índice
+- <a href="#Funcionalidades-do-projeto">Funcionalidades do projeto</a>
 - <a href="#layout">Layout</a>
-- <a href="#tecnologias">Tecnologias utilizadas</a>
-- <a href="#pessoas">Pessoas autoras</a>
+- <a href="#tecnologias-utilizadas">Tecnologias utilizadas</a>
+- <a href="#pessoas-autoras">Pessoas autoras</a>
 
 ## 🖊️Funcionalidades do projeto
 
