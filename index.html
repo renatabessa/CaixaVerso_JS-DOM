@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <header id="cabecalho-container">
+        <h1 class="titulo">Cadastro de clientes</h1>
+      </header>
+      <main id="principal-container">
+        <section class="section-formulario">
+          <h2>**Formulário de cadastro**</h2>
+          <p>Bem vindo a nossa página!</p>
+          <p>Insira seus dados para cadastro</p>
+          <form action="" class="formulario">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" placeholder="Insira seu nome aqui" required/>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="Insira seu e-mail aqui" required />
+
+            <label for="plano">Tipo de plano:</label>
+            <select name="plano_tipo" id="plano" required>
+              <option value="" selected disabled>Escolha seu plano</option>
+              <option value="gold">Gold</option>
+              <option value="silver">Silver</option>
+              <option value="bronze">Bronze</option>
+            </select>
+
+            <button id="btn-formulario">Salvar</button>
+          </form>
+          <section class="section-mensagem">
+            <!--Aqui vai ser inserida via JS a mensagem de Cadastro com a classe="mensagem-validacao" com sucesso ou errro após a validação feita pelo botão-->
+          </section>
+        </section>
+        <section class="section-painel">
+          <h2>**Clientes Cadastrados**</h2>
+
+          <!--Abaixo o Card que deverá aparecer com os dados do cliente. Inicialmente a classe terá display:none e somente aparecerá via JS após a criação do elemento pelo JS e alteração do display do estilo-->
+          <div class="card-painel">
+            
+          <ul class="card-cadastro">
+            <li class="card-item">Cliente:</li>
+            <li class="Card-dados card-nome">Renata Bessa</li>
+            <li class="card-dados">tinha20br@yahoo.com.br</li>
+            <li class="card-dados">Gold</li>
+          </ul>
+          <ul class="card-cadastro">
+            <li class="card-item">Cliente:</li>
+            <li class="Card-dados card-nome">Renata Bessa</li>
+            <li class="card-dados">tinha20br@yahoo.com.br</li>
+            <li class="card-dados">Gold</li>
+          </ul>
+          
+          </div>
+        </section>
+      </main>
+      <footer id="rodape-container">
+        <p>Trabalho realizado por.....</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
