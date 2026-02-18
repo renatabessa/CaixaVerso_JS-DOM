@@ -19,10 +19,20 @@
           <p>Insira seus dados para cadastro</p>
           <form action="" class="formulario">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" placeholder="Insira seu nome aqui" required/>
+            <input
+              type="text"
+              id="nome"
+              placeholder="Insira seu nome aqui"
+              required
+            />
 
             <label for="email">E-mail:</label>
-            <input type="email" id="email" placeholder="Insira seu e-mail aqui" required />
+            <input
+              type="email"
+              id="email"
+              placeholder="Insira seu e-mail aqui"
+              required
+            />
 
             <label for="plano">Tipo de plano:</label>
             <select name="plano_tipo" id="plano" required>
@@ -36,19 +46,29 @@
 
           <section class="section-mensagem">
             <!--Aqui vai ser inserida via JS a mensagem de Cadastro com a classe="mensagem-validacao" com sucesso ou errro após a validação feita pelo botão-->
+            <div id="mensagem-resultado"></div>
           </section>
         </section>
         <section class="section-painel">
           <h2>**Clientes Cadastrados**</h2>
-          <div class="search-painel">
-              dsfsf
-          </div>
-          <div  class="filtro-painel">
-dsdsd
-          </div>
+          <div class="filtro-painel">
+            <div class="search-painel">
+              <label for="busca">Buscar cliente:</label>
+              <input
+                type="text"
+                id="busca"
+                placeholder="Digite o nome ou e-mail"
+              />
+            </div>
 
-          <div class="card-painel">          
+            <select id="filtro-tipo">
+              <option value="todos">Todos</option>
+              <option value="gold">Gold</option>
+              <option value="silver">Silver</option>
+              <option value="bronze">Bronze</option>
+            </select>
           </div>
+          <div class="card-painel"></div>
         </section>
       </main>
       <footer id="rodape-container">

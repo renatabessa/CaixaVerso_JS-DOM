@@ -11,7 +11,9 @@
   --cor-botoes: #e49f5a;
   --cor-fundo: #f0d8af;
   --cor-fundo-secundario: #f5f3f1;
-  --cor-card-detalhe:var(--cor-botoes); /*essa cor vai ser alterada via JS para trocar o detalhe do card de acordo co o plano*/
+  --cor-card-detalhe: var(
+    --cor-botoes
+  ); /*essa cor vai ser alterada via JS para trocar o detalhe do card de acordo co o plano*/
   --sombra: rgba(0, 0, 0, 0.4);
 }
 
@@ -125,6 +127,37 @@ h2 {
   display: none;
 }
 
+/* Mensagem de Resultado */
+
+.mensagem-sucesso {
+  width: 90%;
+  max-width: 400px;
+  color: var(--cor-fonte-detalhe);
+  font-weight: bold;
+  margin: auto;
+  margin-bottom: 0;
+  border-radius: 8px;
+  border: #62a396 1px solid;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #c4faef;
+  display: none;
+}
+
+.mensagem-erro {
+  width: 90%;
+  max-width: 400px;
+  color: rgb(138, 24, 24);
+  font-weight: bold;
+  margin: auto;
+  margin-bottom: 0;
+  border-radius: 8px;
+  border: #e06262 1px solid;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #f9c4c4;
+}
+
 .card-painel {
   display: flex;
   flex-wrap: wrap;
@@ -154,7 +187,7 @@ h2 {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 10px; 
+  width: 10px;
   background-color: var(--cor-card-detalhe);
   border-top-left-radius: 12px;
   border-bottom-left-radius: 10px;
@@ -180,7 +213,51 @@ h2 {
   font-weight: bold;
 }
 
+.btn-card {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  text-decoration: underline;
+  border: none;
+  font-size: 10px;
+  cursor: pointer;
+  color: var(--cor-fonte-detalhe);
+}
+
+.filtro-painel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.search-painel label {
+  font-weight: bold;
+  color: var(--cor-fonte-detalhe);
+}
+
+.search-painel input {
+  width: 250px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--cor-botoes);
+  /*box-shadow: 1px 1px 2px 1px var(--sombra);*/
+}
+
+#filtro-tipo {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--cor-botoes);
+  /*box-shadow: 1px 1px 2px 1px var(--sombra);*/
+}
+
 #rodape-container {
   display: flex;
   margin: auto;
+}
+
+#rodape-container p {
+  color: var(--cor-fonte-detalhe);
+  font-size: 14px;
 }
