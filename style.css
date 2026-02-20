@@ -11,9 +11,6 @@
   --cor-botoes: #e49f5a;
   --cor-fundo: #f0d8af;
   --cor-fundo-secundario: #f5f3f1;
-  --cor-card-detalhe: var(
-    --cor-botoes
-  ); /*essa cor vai ser alterada via JS para trocar o detalhe do card de acordo co o plano*/
   --sombra: rgba(0, 0, 0, 0.4);
 }
 
@@ -32,12 +29,17 @@ body {
   border: dotted 5px var(--cor-botoes);
 }
 
-header {
+#topbar {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
-  border-bottom: 2px solid #e49f5a;
+  border-bottom: 2px solid var(--cor-botoes);
+}
+
+#operador-container {
+  color: var(--cor-fonte-detalhe);
+  font-size: 14px;
 }
 
 h1,
@@ -53,6 +55,8 @@ h2 {
   margin-top: 10px;
   padding: 10px;
 }
+
+/* Formulário de Cadastro */
 
 .section-formulario {
   display: flex;
@@ -158,6 +162,8 @@ h2 {
   background-color: #f9c4c4;
 }
 
+/* Painel de Clientes Cadastrados */
+
 .card-painel {
   display: flex;
   flex-wrap: wrap;
@@ -170,11 +176,11 @@ h2 {
   list-style: none;
   margin-top: 10px;
   padding: 15px;
-  padding-left: 23px;
+  padding-left: 18px;
   width: 225px;
   min-height: 120px;
-  border: solid 1px var(--cor-card-detalhe);
   border-radius: 10px;
+  border: 2px solid var(--cor-botoes);
   box-shadow: 1px 1px 2px 1px var(--sombra);
 
   overflow: hidden;
@@ -187,19 +193,32 @@ h2 {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 10px;
-  background-color: var(--cor-card-detalhe);
+  width: 12px;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 10px;
 }
 
+.card-cadastro.gold::before {
+  background-color: rgb(229, 202, 46);
+}
+.card-cadastro.silver::before {
+  background-color: silver;
+}
+.card-cadastro.bronze::before {
+  background-color: #cd7f32;
+}
+.card-cadastro.default::before {
+  background-color: gray;
+}
+
 .card .card-dados {
-  font-size: 14px;
+  font-size: 12px;
   word-break: break-word;
 }
 
 .card-cadastro li:first-child {
   font-size: 12px;
+  margin-top: 32px;
 }
 
 .card-cadastro li:last-child {
@@ -211,6 +230,15 @@ h2 {
 .card-nome {
   font-size: 20px;
   font-weight: bold;
+}
+
+.avatar-card {
+  position: absolute;
+  top: 5px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .btn-card {
@@ -225,6 +253,11 @@ h2 {
   color: var(--cor-fonte-detalhe);
 }
 
+.btn-card:hover {
+  color: rgb(138, 24, 24);
+} 
+
+/* Filtro e Pesquisa */
 .filtro-painel {
   display: flex;
   justify-content: space-between;
@@ -242,15 +275,15 @@ h2 {
   padding: 6px 10px;
   border-radius: 5px;
   border: 1px solid var(--cor-botoes);
-  /*box-shadow: 1px 1px 2px 1px var(--sombra);*/
 }
 
 #filtro-tipo {
   padding: 6px 10px;
   border-radius: 5px;
   border: 1px solid var(--cor-botoes);
-  /*box-shadow: 1px 1px 2px 1px var(--sombra);*/
 }
+
+/* Rodapé */
 
 #rodape-container {
   display: flex;

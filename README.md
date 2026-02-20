@@ -33,8 +33,13 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 
 ## ⏭️Próximos passos
 
-- [ ] Implementar validação de dados via JS
-- [ ] Salvar a base de cadastros no Local Storage
-- [ ] Renderizar em tela os novos cards cadastrados
+- [x] Implementar validação de dados via JS
+- [x] Salvar a base de cadastros no Local Storage
+- [x] Renderizar em tela os novos cards cadastrados
+- [ ] Incluir JS na Busca do cliente
+- [ ] Implementar API para busca de CEP no formulário
+- [ ] Implementar avatar no Card
+- [ ] Incluir informação de endereço para o cliente
+- [ ] Personalizar a cor do avatar conforme o tipo de plano
 
 [pessoas-autoras]: pessoas-autora
