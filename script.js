@@ -3,6 +3,7 @@ let btnCardRemover = document.querySelector(".btn-card");
 const painelCards = document.querySelector(".card-painel");
 let filtroTipo = document.querySelector("#filtro-tipo");
 const operadorNome = document.querySelector("#operador");
+const campoBusca = document.querySelector("#busca");
 
 const clientesCadastrados = [];
 
@@ -122,7 +123,6 @@ function atualizarClientesCadastrados(nome, sobrenome, email, plano) {
 // ----------------------
 
 function renderizarCadastros() {
-  console.log("Cadastro renderizado com sucesso");
   let painelCard = document.querySelector(".card-painel");
 
   painelCard.innerHTML = "";
@@ -134,10 +134,17 @@ function renderizarCadastros() {
                     <li class="Card-dados card-nome">${i.nome} ${i.sobrenome}</li>
                     <li class="card-dados">${i.email}</li>
                     <button class="btn-card" data-mail="${i.email}">Remover</button>
-                    <img class="avatar-card" src="https://ui-avatars.com/api/?name=${i.nome}+${i.sobrenome}&size=50" alt="Avatar do cliente" />
+                      <img class="avatar-card" src="https://ui-avatars.com/api/?name=${i.nome}+${i.sobrenome}&size=50&background=${i.plano === 'gold' ? 'e5ca2e' : i.plano === 'silver' ? 'C0C0C0' : 'cd7f32'}&color=fff" alt="Avatar do cliente" />
                     <li class="card-dados">${i.plano}</li>
                     `;
-    switch (i.plano.toLowerCase()) {
+    renderizarCardPlano(i.plano, card);
+    
+    painelCard.appendChild(card);
+  }
+}
+
+function renderizarCardPlano(plano, card) {
+      switch (plano.toLowerCase()) {
       case "gold":
         card.style.borderColor = "gold";
         card.classList.add("gold");
@@ -154,12 +161,7 @@ function renderizarCadastros() {
         card.style.borderColor = "gray";
         card.classList.add("default");
     }
-    console.log(card);
-
-    painelCard.appendChild(card);
-  }
 }
-
 // ----------------------
 // Inclusão de mensagens de resultado (sucesso ou erro)
 // ----------------------
@@ -210,7 +212,7 @@ filtroTipo.addEventListener("change", filtrarPlanos);
 
 function filtrarPlanos() {
   const tipoSelecionado = filtroTipo.value;
-  console.log(tipoSelecionado);
+
   const cards = document.querySelectorAll(".card-cadastro");
 
   cards.forEach((card) => {
@@ -240,5 +242,35 @@ document.querySelector("#email").addEventListener("blur", function () {
 });
 
 // ----------------------
-// Alteração da cor da borda do card de acordo com o tipo de plano
+// Pesquisa de cliente por nome ou e-mail
 // ----------------------
+
+campoBusca.addEventListener("input", () => {
+  const termo = campoBusca.value.toLowerCase(); 
+
+  const painelCard = document.querySelector(".card-painel");
+  painelCard.innerHTML = ""; 
+
+  // Filtra clientes pelo nome ou email
+  const filtrados = clientesCadastrados.filter(
+    (cliente) =>
+      cliente.nome.toLowerCase().includes(termo) ||
+      cliente.email.toLowerCase().includes(termo),
+  );
+
+  // Renderiza apenas os filtrados
+  for (let i of filtrados) {
+    const card = document.createElement("ul");
+    card.classList.add("card-cadastro");
+    card.innerHTML =`<li class="card-item">Cliente:</li>
+                    <li class="Card-dados card-nome">${i.nome} ${i.sobrenome}</li>
+                    <li class="card-dados">${i.email}</li>
+                    <button class="btn-card" data-mail="${i.email}">Remover</button>
+                    <img class="avatar-card" src="https://ui-avatars.com/api/?name=${i.nome}+${i.sobrenome}&size=50" alt="Avatar do cliente" />
+                    <li class="card-dados">${i.plano}</li>
+                    `;
+    painelCard.appendChild(card);
+    renderizarCardPlano(i.plano, card);
+  }
+});
+// 

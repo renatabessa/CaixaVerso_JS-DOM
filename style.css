@@ -200,9 +200,10 @@ h2 {
 
 .card-cadastro.gold::before {
   background-color: rgb(229, 202, 46);
+  color: rgb(229, 202, 46);
 }
 .card-cadastro.silver::before {
-  background-color: silver;
+  background-color: #c0c0c0;
 }
 .card-cadastro.bronze::before {
   background-color: #cd7f32;
