@@ -8,7 +8,7 @@ const campoBusca = document.querySelector("#busca");
 const clientesCadastrados = [];
 
 let cliente = {
-  id: 0,
+  id: Date.now(),
   nome: "",
   sobrenome: "",
   email: "",
@@ -68,15 +68,25 @@ function buscarElementosCadastrados() {
 // ----------------------
 
 btnFormulario.addEventListener("click", (e) => {
+      // Esconder campos de endereço
+      document.querySelectorAll('#rua, #bairro, #cidade, #estado, label[for="rua"], label[for="bairro"], label[for="cidade"], label[for="estado"]').forEach(function(el) {
+        if (!el.classList.contains('secao-cep')) el.classList.add('secao-cep');
+      });
+      
   //Esta função vai captar os dados dos Input e enviar para um novo cliente
   let nomeInput = document.querySelector("#nome").value;
   let sobrenomeInput = document.querySelector("#sobrenome").value;
   let emailInput = document.querySelector("#email").value;
+  let cepInput = document.querySelector("#cep").value;
+  let ruaInput = document.querySelector("#rua").value;
+  let bairroInput = document.querySelector("#bairro").value;
+  let cidadeInput = document.querySelector("#cidade").value;
+  let estadoInput = document.querySelector("#estado").value;
   let selectInput = document.querySelector("#plano").value;
   e.preventDefault();
 
   try {
-    if (!nomeInput || !emailInput || !selectInput) {
+    if (!nomeInput || !emailInput || !selectInput || !cepInput) {
       throw new Error("Preencha todos os campos obrigatórios.");
       return;
     } else if (
@@ -88,10 +98,31 @@ btnFormulario.addEventListener("click", (e) => {
       throw new Error("Digite um email válido.");
       return;
     }
-    atualizarClientesCadastrados(nomeInput,sobrenomeInput,emailInput, selectInput);
+    atualizarClientesCadastrados(
+      nomeInput,
+      sobrenomeInput,
+      emailInput,
+      cepInput,
+      ruaInput,
+      bairroInput,
+      cidadeInput,
+      estadoInput,
+      selectInput,
+    );
+    console.log(clientesCadastrados);
     armazenarCadastro();
     renderizarCadastros();
     renderizarResultadoMensagem("Usuário cadastrado com sucesso!");
+    // Limpar campos do formulário
+    document.querySelector("#nome").value = "";
+    document.querySelector("#sobrenome").value = "";
+    document.querySelector("#email").value = "";
+    document.querySelector("#cep").value = "";
+    document.querySelector("#rua").value = "";
+    document.querySelector("#bairro").value = "";
+    document.querySelector("#cidade").value = "";
+    document.querySelector("#estado").value = "";
+    document.querySelector("#plano").value = "";
   } catch (error) {
     renderizarResultadoMensagem(error.message, false);
   }
@@ -112,9 +143,9 @@ function armazenarCadastro() {
 // Atualizar o array de clientes cadastrados com os novos clientes a cada cadastro
 // ----------------------
 
-function atualizarClientesCadastrados(nome, sobrenome, email, plano) {
+function atualizarClientesCadastrados(nome, sobrenome, email, cep, rua, bairro, cidade, estado, plano) {
   console.log("usuario Cadastrado com sucesso");
-  clientesCadastrados.push({ nome, sobrenome, email, plano });
+  clientesCadastrados.push({ nome, sobrenome, email, cep, rua, bairro, cidade, estado, plano });
   console.log(clientesCadastrados);
 }
 
@@ -134,33 +165,33 @@ function renderizarCadastros() {
                     <li class="Card-dados card-nome">${i.nome} ${i.sobrenome}</li>
                     <li class="card-dados">${i.email}</li>
                     <button class="btn-card" data-mail="${i.email}">Remover</button>
-                      <img class="avatar-card" src="https://ui-avatars.com/api/?name=${i.nome}+${i.sobrenome}&size=50&background=${i.plano === 'gold' ? 'e5ca2e' : i.plano === 'silver' ? 'C0C0C0' : 'cd7f32'}&color=fff" alt="Avatar do cliente" />
+                      <img class="avatar-card" src="https://ui-avatars.com/api/?name=${i.nome}+${i.sobrenome}&size=50&background=${i.plano === "gold" ? "e5ca2e" : i.plano === "silver" ? "C0C0C0" : "cd7f32"}&color=fff" alt="Avatar do cliente" />
                     <li class="card-dados">${i.plano}</li>
                     `;
     renderizarCardPlano(i.plano, card);
-    
+
     painelCard.appendChild(card);
   }
 }
 
 function renderizarCardPlano(plano, card) {
-      switch (plano.toLowerCase()) {
-      case "gold":
-        card.style.borderColor = "gold";
-        card.classList.add("gold");
-        break;
-      case "silver":
-        card.style.borderColor = "silver";
-        card.classList.add("silver");
-        break;
-      case "bronze":
-        card.style.borderColor = "#cd7f32";
-        card.classList.add("bronze");
-        break;
-      default:
-        card.style.borderColor = "gray";
-        card.classList.add("default");
-    }
+  switch (plano.toLowerCase()) {
+    case "gold":
+      card.style.borderColor = "gold";
+      card.classList.add("gold");
+      break;
+    case "silver":
+      card.style.borderColor = "silver";
+      card.classList.add("silver");
+      break;
+    case "bronze":
+      card.style.borderColor = "#cd7f32";
+      card.classList.add("bronze");
+      break;
+    default:
+      card.style.borderColor = "gray";
+      card.classList.add("default");
+  }
 }
 // ----------------------
 // Inclusão de mensagens de resultado (sucesso ou erro)
@@ -246,10 +277,10 @@ document.querySelector("#email").addEventListener("blur", function () {
 // ----------------------
 
 campoBusca.addEventListener("input", () => {
-  const termo = campoBusca.value.toLowerCase(); 
+  const termo = campoBusca.value.toLowerCase();
 
   const painelCard = document.querySelector(".card-painel");
-  painelCard.innerHTML = ""; 
+  painelCard.innerHTML = "";
 
   // Filtra clientes pelo nome ou email
   const filtrados = clientesCadastrados.filter(
@@ -262,7 +293,7 @@ campoBusca.addEventListener("input", () => {
   for (let i of filtrados) {
     const card = document.createElement("ul");
     card.classList.add("card-cadastro");
-    card.innerHTML =`<li class="card-item">Cliente:</li>
+    card.innerHTML = `<li class="card-item">Cliente:</li>
                     <li class="Card-dados card-nome">${i.nome} ${i.sobrenome}</li>
                     <li class="card-dados">${i.email}</li>
                     <button class="btn-card" data-mail="${i.email}">Remover</button>
@@ -273,4 +304,63 @@ campoBusca.addEventListener("input", () => {
     renderizarCardPlano(i.plano, card);
   }
 });
-// 
+
+// ----------------------
+// implementação API CEP para preenchimento automático do endereço
+// ----------------------
+
+function mostrarCamposEndereco(mostrar) {
+  document
+    .querySelectorAll(
+      '#rua, #bairro, #cidade, #estado, label[for="rua"], label[for="bairro"], label[for="cidade"], label[for="estado"]',
+    )
+    .forEach(function (el) {
+      if (mostrar) {
+        el.classList.remove("secao-cep");
+      } else {
+        if (!el.classList.contains("secao-cep")) el.classList.add("secao-cep");
+      }
+    });
+}
+
+document.querySelector("#cep").addEventListener("blur", function () {
+  const cepInput = this;
+  const cep = cepInput.value.replace(/\D/g, "");
+
+  if (cep.length !== 8) {
+    mostrarErro();
+    mostrarCamposEndereco(false);
+    return;
+  }
+
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.erro) {
+        mostrarErro();
+        mostrarCamposEndereco(false);
+        return;
+      }
+      document.querySelector("#rua").value = data.logradouro || "";
+      document.querySelector("#bairro").value = data.bairro || "";
+      document.querySelector("#cidade").value = data.localidade || "";
+      document.querySelector("#estado").value = data.uf || "";
+
+      cepInput.style.borderColor = "green";
+      mostrarCamposEndereco(true);
+    })
+    .catch(() => {
+      mostrarErro();
+      mostrarCamposEndereco(false);
+    });
+});
+
+function mostrarErro() {
+  const cepInput = document.querySelector("#cep");
+  cepInput.style.borderColor = "red";
+  document.querySelector("#rua").value = "";
+  document.querySelector("#bairro").value = "";
+  document.querySelector("#cidade").value = "";
+  document.querySelector("#estado").value = "";
+  renderizarResultadoMensagem("CEP inválido ou não encontrado.", false);
+}

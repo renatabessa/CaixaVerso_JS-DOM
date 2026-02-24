@@ -9,6 +9,7 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 - <a href="#tecnologias-utilizadas">Tecnologias utilizadas</a>
 - <a href="#️pessoas-autoras">Pessoas autoras</a>
 - <a href="#️próximos-passos">Próximos passos</a>
+
 ## 🖊️Funcionalidades do projeto
 
 - [x] Cadastro de novos Clientes
@@ -36,10 +37,11 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 - [x] Implementar validação de dados via JS
 - [x] Salvar a base de cadastros no Local Storage
 - [x] Renderizar em tela os novos cards cadastrados
-- [ ] Incluir JS na Busca do cliente
-- [ ] Implementar API para busca de CEP no formulário
-- [ ] Implementar avatar no Card
-- [ ] Incluir informação de endereço para o cliente
-- [ ] Personalizar a cor do avatar conforme o tipo de plano
+- [x] Incluir JS na Busca do cliente
+- [x] Implementar API para busca de CEP no formulário
+- [x] Implementar avatar no Card
+- [x] Incluir informação de endereço para o cliente
+- [x] Personalizar a cor do avatar conforme o tipo de plano
+- [ ] Realização de testes
 
 [pessoas-autoras]: pessoas-autora

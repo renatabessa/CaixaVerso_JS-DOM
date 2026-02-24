@@ -44,8 +44,27 @@
               placeholder="Insira seu e-mail aqui"
               required
             />
+            <label for="cep">CEP:</label>
+            <input
+              id="cep"
+              type="text"
+              placeholder="Insira o seu CEP aqui"
+              required
+              maxlength="8"
+            />
+          
+            <label for="rua" class="secao-cep">Rua:</label>
+            <input id="rua" type="text" class="secao-cep" placeholder="" />
 
-            <!--Aqui vai entrar o INput de endereço pela-->
+            <label for="bairro" class="secao-cep">Bairro:</label>
+            <input id="bairro" type="text" class="secao-cep" placeholder="" />
+
+            <label for="cidade" class="secao-cep">Cidade:</label>
+            <input id="cidade" type="text" class="secao-cep" placeholder="" />
+
+            <label for="estado" class="secao-cep">Estado:</label>
+            <input id="estado" type="text" class="secao-cep" placeholder="" />
+            
             <label for="plano">Tipo de plano:</label>
             <select name="plano_tipo" id="plano" required>
               <option value="" selected disabled>Escolha seu plano</option>

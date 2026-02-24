@@ -101,6 +101,10 @@ h2 {
   padding-left: 10px;
 }
 
+.secao-cep {
+  display: none;
+}
+
 #btn-formulario {
   width: 100px;
   height: 30px;
