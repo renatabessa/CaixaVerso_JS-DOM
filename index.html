@@ -52,7 +52,7 @@
               required
               maxlength="8"
             />
-          
+
             <label for="rua" class="secao-cep">Rua:</label>
             <input id="rua" type="text" class="secao-cep" placeholder="" />
 
@@ -64,7 +64,7 @@
 
             <label for="estado" class="secao-cep">Estado:</label>
             <input id="estado" type="text" class="secao-cep" placeholder="" />
-            
+
             <label for="plano">Tipo de plano:</label>
             <select name="plano_tipo" id="plano" required>
               <option value="" selected disabled>Escolha seu plano</option>
@@ -72,13 +72,19 @@
               <option value="silver">Silver</option>
               <option value="bronze">Bronze</option>
             </select>
-            <button id="btn-formulario">Salvar</button>
+
+            <div class="formulario_bottom">
+              <div id="status-icon"></div>
+              <div id="status"></div>
+              <button id="btn-formulario">Cadastrar</button>
+            </div>
           </form>
 
           <section class="section-mensagem">
             <div id="mensagem-resultado"></div>
           </section>
         </section>
+
         <section class="section-painel">
           <h2>**Clientes Cadastrados**</h2>
           <div class="filtro-painel">

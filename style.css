@@ -106,7 +106,7 @@ h2 {
 }
 
 #btn-formulario {
-  width: 100px;
+  width: 110px;
   height: 30px;
   margin-top: 10px;
   font-size: 16px;
@@ -120,6 +120,13 @@ h2 {
   font-weight: bold;
 }
 
+#btn-formulario:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  font-size: small;
+  padding: 2px 10px;
+}
+
 #btn-formulario:hover {
   background-color: var(--cor-botoes);
 }
@@ -131,12 +138,40 @@ h2 {
   margin: 20 px auto;
 }
 
-.mensagem-validacao {
+.formulario_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px ;
+}
+
+
+*#status{
+  color: var(--cor-fundo-secundario);
+  text-shadow: #1a1515 1px 0 0, #1a1515 0 1px 0, #1a1515 -1px 0 0, #1a1515 0 -1px 0;
+  font-size: 14px;
+}
+
+#status-icon{
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--cor-botoes);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
   display: none;
+} 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Mensagem de Resultado */
 
+.mensagem-validacao {
+  display: none;
+}
 .mensagem-sucesso {
   width: 90%;
   max-width: 400px;
@@ -164,6 +199,12 @@ h2 {
   padding: 10px 20px;
   text-align: center;
   background-color: #f9c4c4;
+}
+
+.section-loading {
+  display: none;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 /* Painel de Clientes Cadastrados */

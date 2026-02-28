@@ -42,6 +42,7 @@ Este projeto está em constante desenvolvimento, com adição de funcionalidades
 - [x] Implementar avatar no Card
 - [x] Incluir informação de endereço para o cliente
 - [x] Personalizar a cor do avatar conforme o tipo de plano
+- [ ] Simular realização de análise se crédito
 - [ ] Realização de testes
 
 [pessoas-autoras]: pessoas-autora
