@@ -362,5 +362,180 @@ function mostrarErro() {
   document.querySelector("#bairro").value = "";
   document.querySelector("#cidade").value = "";
   document.querySelector("#estado").value = "";
+
   renderizarResultadoMensagem("CEP inválido ou não encontrado.", false);
 }
+
+
+//==========================================================================
+
+
+
+// Funções de feedback visual (Sprint 3)
+// ----------------------
+
+// Mostra mensagem de status (etapas do processo assíncrono)
+function mostrarStatus(mensagem) {
+  const status = document.querySelector("#status");
+  status.textContent = mensagem;
+}
+
+// Mostra área de loading com mensagem
+function mostrarLoading(mensagem) {
+  const loading = document.querySelector("#loading");
+  loading.textContent = mensagem;
+  loading.style.display = "block";
+}
+
+// Oculta área de loading
+function ocultarLoading() {
+  const loading = document.querySelector("#loading");
+  loading.style.display = "none";
+}
+
+// ----------------------
+// Mensagens de resultado (sucesso/erro)
+// ----------------------
+function renderizarResultadoMensagem(mensagem, sucesso = true) {
+  const mensagemElemento = document.querySelector("#mensagem-resultado");
+  mensagemElemento.style.display = "block";
+  mensagemElemento.textContent = mensagem;
+  mensagemElemento.className = sucesso ? "mensagem-sucesso" : "mensagem-erro";
+  setTimeout(() => {
+    mensagemElemento.style.display = "none";
+  }, 5000);
+}
+
+
+
+
+// ----------------------
+// Promise customizada: simulação de análise de crédito (Sprint 3)
+// ----------------------
+function simularAnaliseCredito(nome, plano) {
+  return new Promise((resolve, reject) => {
+    if (plano.toLowerCase() === "gold") {
+      // Simula atraso de 5 segundos
+      setTimeout(() => {
+        // 20% de chance de reprovação
+        if (Math.random() < 0.2) {
+          reject("Cadastro negado: Análise de crédito reprovada.");
+        } else {
+          resolve("Análise de crédito aprovada.");
+        }
+      }, 5000);
+    } else {
+      // Silver e Bronze aprovam imediatamente
+      resolve("Plano não exige análise de crédito.");
+    }
+  });
+}
+
+
+
+// ----------------------
+// Fluxo de cadastro assíncrono (Sprint 3)
+// ----------------------
+btnFormulario.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  // Captura dos campos
+  let nomeInput = document.querySelector("#nome").value;
+  let sobrenomeInput = document.querySelector("#sobrenome").value;
+  let emailInput = document.querySelector("#email").value;
+  let cepInput = document.querySelector("#cep").value;
+  let ruaInput = document.querySelector("#rua").value;
+  let bairroInput = document.querySelector("#bairro").value;
+  let cidadeInput = document.querySelector("#cidade").value;
+  let estadoInput = document.querySelector("#estado").value;
+  let selectInput = document.querySelector("#plano").value;
+
+  // Bloqueia botão durante processamento
+  btnFormulario.disabled = true;
+  btnFormulario.textContent = "Processando...";
+
+  try {
+    // Validação local
+    if (!nomeInput || !emailInput || !selectInput || !cepInput) {
+      throw new Error("Preencha todos os campos obrigatórios.");
+    } else if (
+      clientesCadastrados.some((cliente) => cliente.email === emailInput)
+    ) {
+      throw new Error("Este email já está cadastrado.");
+    } else if (!emailInput.includes("@") || !emailInput.includes(".")) {
+      throw new Error("Digite um email válido.");
+    }
+
+    // Etapa 1: Consultando CEP
+    mostrarStatus("1. Consultando CEP...");
+    mostrarLoading("Consultando CEP...");
+
+    // Consulta ViaCEP
+    const response = await fetch(`https://viacep.com.br/ws/${cepInput}/json/`);
+    const data = await response.json();
+    ocultarLoading();
+
+    if (data.erro) {
+      throw new Error("CEP inválido ou não encontrado.");
+    }
+
+    // Preenche campos de endereço
+    document.querySelector("#rua").value = data.logradouro || "";
+    document.querySelector("#bairro").value = data.bairro || "";
+    document.querySelector("#cidade").value = data.localidade || "";
+    document.querySelector("#estado").value = data.uf || "";
+
+    // Etapa 2: Análise de crédito
+    mostrarStatus("2. Realizando análise de crédito...");
+    await simularAnaliseCredito(nomeInput, selectInput);
+
+    // Etapa 3: Gerando avatar
+    mostrarStatus("3. Gerando Avatar...");
+    const avatarUrl = `https://ui-avatars.com/api/?name=${nomeInput}+${sobrenomeInput}`;
+
+    // Criação do objeto cliente
+    const novoCliente = {
+      id: Date.now(),
+      nome: nomeInput,
+      sobrenome: sobrenomeInput,
+      email: emailInput,
+      cep: cepInput,
+      rua: ruaInput,
+      bairro: bairroInput,
+      cidade: cidadeInput,
+      estado: estadoInput,
+      plano: selectInput,
+      avatar: avatarUrl,
+      operador: sessionStorage.getItem("operador"),
+    };
+
+    // Etapa 4: Salvar cliente
+    clientesCadastrados.push(novoCliente);
+    localStorage.setItem("clientes_db", JSON.stringify(clientesCadastrados));
+    renderizarCadastros();
+
+    mostrarStatus("4. Cadastro concluído!");
+    renderizarResultadoMensagem("Usuário cadastrado com sucesso!");
+
+    // Limpar campos
+    document.querySelector("#nome").value = "";
+    document.querySelector("#sobrenome").value = "";
+    document.querySelector("#email").value = "";
+    document.querySelector("#cep").value = "";
+    document.querySelector("#rua").value = "";
+    document.querySelector("#bairro").value = "";
+    document.querySelector("#cidade").value = "";
+    document.querySelector("#estado").value = "";
+    document.querySelector("#plano").value = "";
+  } catch (error) {
+    // Tratamento de falhas
+    renderizarResultadoMensagem(error.message || error, false);
+  } finally {
+    // Reabilita botão
+    btnFormulario.disabled = false;
+    btnFormulario.textContent = "Salvar";
+  }
+});
+// ----------------------
+// Fim do código
+// ----------------------
