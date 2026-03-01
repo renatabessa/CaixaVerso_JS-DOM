@@ -45,7 +45,7 @@ inicializarOperador();
 // BUscar os clientes cadastrados no local storage e renderizar os cards na tela a partir do Array de clientes cadastrados
 // ----------------------
 
-window.onload = buscarElementosCadastrados();
+window.onload = buscarElementosCadastrados;
 
 function buscarElementosCadastrados() {
   const clientesReservados = localStorage.getItem("clientes_db");
@@ -106,6 +106,10 @@ btnFormulario.addEventListener("click", async (e) => {
 
   btnFormulario.disabled = true;
   btnFormulario.textContent = "Processando...";
+
+  mostrarLoading("Validando dados...");
+  await aguardarTempo(2000);
+  ocultarLoading();
 
   try {
     if (!nomeInput || !emailInput || !selectInput || !cepInput) {
@@ -178,6 +182,17 @@ btnFormulario.addEventListener("click", async (e) => {
   }
 });
 
+
+// ----------------------
+// Atualizar o array de clientes cadastrados com os novos clientes a cada cadastro
+// ----------------------
+
+function atualizarClientesCadastrados(novoCliente) {
+  clientesCadastrados.push(novoCliente);
+  console.log(clientesCadastrados);
+}
+
+
 // ----------------------
 // Armazenar o cadastro no local storage a cada novo cliente cadastrado
 // ----------------------
@@ -187,15 +202,6 @@ function armazenarCadastro() {
     "clientes_db",
     JSON.stringify(clientesCadastrados), //colocar o array no local storage
   );
-}
-
-// ----------------------
-// Atualizar o array de clientes cadastrados com os novos clientes a cada cadastro
-// ----------------------
-
-function atualizarClientesCadastrados(novoCliente) {
-  clientesCadastrados.push(novoCliente);
-  console.log(clientesCadastrados);
 }
 
 // ----------------------
@@ -352,7 +358,6 @@ function consultarCEP(cep) {
     .then((response) => response.json())
     .then((data) => {
       if (data.erro) {
-        //mostrarErro();  CONFIRMAR PARA DELETAR DE VEZ
         mostrarCamposEndereco(false);
         throw new Error("CEP não encontrado");
       }
@@ -373,8 +378,7 @@ function consultarCEP(cep) {
     })
     .catch((err) => {
       ocultarLoading();
-      // erro já foi tratado acima; propagar para o chamador
-      throw err;
+      throw new Error("Erro ao consultar CEP");
     });
 }
 
@@ -419,15 +423,13 @@ function mostrarCamposEndereco(mostrar) {
     }
   });
 }
-
-//function mostrarErro() {
+// function mostrarErro() {
 // const cepInput = document.querySelector("#cep");
-// //cepInput.style.borderColor = "red";
-// document.querySelector("#rua").value = "";
+// cepInput.style.borderColor = "red"; document.querySelector("#rua").value // = "";
 // document.querySelector("#bairro").value = "";
 // document.querySelector("#cidade").value = "";
 // document.querySelector("#estado").value = "";
-//}CONFIRMAR PARA DELETAR DE VEZ
+// }
 
 //renderizarResultadoMensagem("CEP inválido ou não encontrado.", false);
 //}
@@ -469,6 +471,7 @@ function simularAnaliseCredito(plano) {
 function mostrarLoading(mensagem) {
   const loading = document.querySelector("#status");
   const loadingIcon = document.querySelector("#status-icon");
+  console.log("Mostrando loading:", mensagem);
   if (loadingIcon) {
     loadingIcon.style.display = "inline-block";
   }
