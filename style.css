@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+
 :root {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --cor-fonte-base: #000;
@@ -14,9 +15,11 @@
   --sombra: rgba(0, 0, 0, 0.4);
 }
 
+
 body {
   background-color: var(--cor-fundo);
 }
+
 
 #container {
   display: flex;
@@ -29,6 +32,7 @@ body {
   border: dotted 5px var(--cor-botoes);
 }
 
+
 #topbar {
   display: flex;
   justify-content: space-between;
@@ -37,10 +41,12 @@ body {
   border-bottom: 2px solid var(--cor-botoes);
 }
 
+
 #operador-container {
   color: var(--cor-fonte-detalhe);
   font-size: 14px;
 }
+
 
 h1,
 h2 {
@@ -49,6 +55,7 @@ h2 {
   text-transform: uppercase;
 }
 
+
 #principal-container {
   display: flex;
   flex-direction: column;
@@ -56,7 +63,9 @@ h2 {
   padding: 10px;
 }
 
+
 /* Formulário de Cadastro */
+
 
 .section-formulario {
   display: flex;
@@ -64,9 +73,11 @@ h2 {
   gap: 8px;
 }
 
+
 .section-formulario p {
   text-align: center;
 }
+
 
 .formulario {
   width: 90%;
@@ -84,9 +95,11 @@ h2 {
   padding-bottom: 20px;
 }
 
+
 .formulario label {
   color: var(--cor-fundo);
 }
+
 
 .formulario input {
   height: 28px;
@@ -95,18 +108,21 @@ h2 {
   padding-left: 10px;
 }
 
+
 .formulario select {
   margin-bottom: 8px;
   height: 28px;
   padding-left: 10px;
 }
 
+
 .secao-cep {
   display: none;
 }
 
+
 #btn-formulario {
-  width: 100px;
+  width: 110px;
   height: 30px;
   margin-top: 10px;
   font-size: 16px;
@@ -120,9 +136,19 @@ h2 {
   font-weight: bold;
 }
 
+
+#btn-formulario:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  font-size: small;
+  padding: 2px 10px;
+}
+
+
 #btn-formulario:hover {
   background-color: var(--cor-botoes);
 }
+
 
 .section-painel {
   display: flex;
@@ -131,12 +157,46 @@ h2 {
   margin: 20 px auto;
 }
 
-.mensagem-validacao {
+
+.formulario_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px ;
+}
+
+
+
+
+*#status{
+  color: var(--cor-fundo-secundario);
+  text-shadow: #1a1515 1px 0 0, #1a1515 0 1px 0, #1a1515 -1px 0 0, #1a1515 0 -1px 0;
+  font-size: 14px;
+}
+
+
+#status-icon{
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--cor-botoes);
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
   display: none;
 }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 /* Mensagem de Resultado */
 
+
+.mensagem-validacao {
+  display: none;
+}
 .mensagem-sucesso {
   width: 90%;
   max-width: 400px;
@@ -152,6 +212,7 @@ h2 {
   display: none;
 }
 
+
 .mensagem-erro {
   width: 90%;
   max-width: 400px;
@@ -166,7 +227,16 @@ h2 {
   background-color: #f9c4c4;
 }
 
+
+.section-loading {
+  display: none;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
 /* Painel de Clientes Cadastrados */
+
 
 .card-painel {
   display: flex;
@@ -174,6 +244,7 @@ h2 {
   gap: 20px;
   justify-content: space-around;
 }
+
 
 .card-cadastro {
   position: relative;
@@ -187,8 +258,10 @@ h2 {
   border: 2px solid var(--cor-botoes);
   box-shadow: 1px 1px 2px 1px var(--sombra);
 
+
   overflow: hidden;
 }
+
 
 /* Marcação vertical colorida no lado esquerdo do card*/
 .card-cadastro::before {
@@ -201,6 +274,7 @@ h2 {
   border-top-left-radius: 12px;
   border-bottom-left-radius: 10px;
 }
+
 
 .card-cadastro.gold::before {
   background-color: rgb(229, 202, 46);
@@ -216,15 +290,18 @@ h2 {
   background-color: gray;
 }
 
+
 .card .card-dados {
   font-size: 12px;
   word-break: break-word;
 }
 
+
 .card-cadastro li:first-child {
   font-size: 12px;
   margin-top: 32px;
 }
+
 
 .card-cadastro li:last-child {
   text-align: right;
@@ -232,10 +309,12 @@ h2 {
   margin-top: 10px;
 }
 
+
 .card-nome {
   font-size: 20px;
   font-weight: bold;
 }
+
 
 .avatar-card {
   position: absolute;
@@ -245,6 +324,7 @@ h2 {
   height: 40px;
   border-radius: 50%;
 }
+
 
 .btn-card {
   position: absolute;
@@ -258,9 +338,11 @@ h2 {
   color: var(--cor-fonte-detalhe);
 }
 
+
 .btn-card:hover {
   color: rgb(138, 24, 24);
-} 
+}
+
 
 /* Filtro e Pesquisa */
 .filtro-painel {
@@ -270,10 +352,12 @@ h2 {
   margin: 10px;
 }
 
+
 .search-painel label {
   font-weight: bold;
   color: var(--cor-fonte-detalhe);
 }
+
 
 .search-painel input {
   width: 250px;
@@ -282,20 +366,26 @@ h2 {
   border: 1px solid var(--cor-botoes);
 }
 
+
 #filtro-tipo {
   padding: 6px 10px;
   border-radius: 5px;
   border: 1px solid var(--cor-botoes);
 }
 
+
 /* Rodapé */
+
 
 #rodape-container {
   display: flex;
   margin: auto;
+  justify-content: center;
 }
+
 
 #rodape-container p {
   color: var(--cor-fonte-detalhe);
   font-size: 14px;
+  margin-top: 20px;
 }
