@@ -5,9 +5,7 @@ let filtroTipo = document.querySelector("#filtro-tipo");
 const operadorNome = document.querySelector("#operador");
 const campoBusca = document.querySelector("#busca");
 
-
 const clientesCadastrados = [];
-
 
 let cliente = {
   id: Date.now(),
@@ -22,15 +20,12 @@ let cliente = {
   avatar: "",
 };
 
-
 // ----------------------
 // Inserir o nome do operador(a) atual e armazenar no session storage para manter a informação durante a sessão de uso do sistema
 // ----------------------
 
-
 function inicializarOperador() {
   let operadorName = sessionStorage.getItem("operador");
-
 
   if (!operadorName) {
     operadorName = prompt("Digite o nome do(a) operador(a):");
@@ -41,33 +36,23 @@ function inicializarOperador() {
     }
   }
 
-
   operadorNome.textContent = `${operadorName}`;
 }
 
-
 inicializarOperador();
-
 
 // ----------------------
 // BUscar os clientes cadastrados no local storage e renderizar os cards na tela a partir do Array de clientes cadastrados
 // ----------------------
 
-
 window.onload = buscarElementosCadastrados;
-
 
 function buscarElementosCadastrados() {
   const clientesReservados = localStorage.getItem("clientes_db");
 
-
-  console.log(clientesReservados); //pode apagar depois, só para verificar o que tem no local storage. Se tiver algo, ele vai mostrar no console, se não tiver nada, vai mostrar null. Assim a gente sabe se o local storage está funcionando ou não.
-
-
   if (clientesReservados) {
     const parsed = JSON.parse(clientesReservados);
     clientesCadastrados.push(...parsed);
-
 
     console.log(clientesCadastrados);
     renderizarCadastros();
@@ -76,23 +61,16 @@ function buscarElementosCadastrados() {
   }
 }
 
-
 // Função auxiliar para aguardar tempo (em milissegundos)
+
 function aguardarTempo(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 }
 
-
-// ----------------------
-// Acionar o evento de clique no botão de cadastro para captar os dados dos inputs e criar um novo cliente
-// ----------------------
-
-
-// ----------------------
 // Validação visual E-mail e CEP blur
-// ----------------------
+
 document.querySelector("#email").addEventListener("blur", function () {
   const emailInput = this;
   if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) {
@@ -101,7 +79,6 @@ document.querySelector("#email").addEventListener("blur", function () {
     emailInput.style.borderColor = "";
   }
 });
-
 
 document.querySelector("#cep").addEventListener("blur", function () {
   const cepInput = this;
@@ -112,10 +89,12 @@ document.querySelector("#cep").addEventListener("blur", function () {
   }
 });
 
+// ----------------------
+// Acionar o evento de clique no botão de cadastro para captar os dados dos inputs e criar um novo cliente
+// ----------------------
 
 btnFormulario.addEventListener("click", async (e) => {
   e.preventDefault();
-
 
   let nomeInput = document.querySelector("#nome").value;
   let sobrenomeInput = document.querySelector("#sobrenome").value;
@@ -123,15 +102,12 @@ btnFormulario.addEventListener("click", async (e) => {
   let cepInput = document.querySelector("#cep").value;
   let selectInput = document.querySelector("#plano").value;
 
-
   btnFormulario.disabled = true;
   btnFormulario.textContent = "Processando...";
-
 
   mostrarLoading("Validando dados...");
   await aguardarTempo(2000);
   ocultarLoading();
-
 
   try {
     if (!nomeInput || !emailInput || !selectInput || !cepInput) {
@@ -144,30 +120,24 @@ btnFormulario.addEventListener("click", async (e) => {
       throw new Error("Digite um email válido.");
     }
 
-
     // chama o CEP e aguarda o retorno dos dados (ou uma rejeição em caso de
     // CEP inválido)
- 
+
     const dataCEP = await consultarCEP(cepInput);
     ocultarLoading();
-
 
     if (dataCEP.erro) {
       throw new Error("CEP inválido ou não encontrado.");
     }
 
-
-    // AGORA capturar os valores de endereço após a API preencher os campos
     let ruaInput = document.querySelector("#rua").value;
     let bairroInput = document.querySelector("#bairro").value;
     let cidadeInput = document.querySelector("#cidade").value;
     let estadoInput = document.querySelector("#estado").value;
 
-
     await simularAnaliseCredito(selectInput);
     ocultarLoading();
     mostrarLoading("Gerando Avatar...");
-
 
     const novoCLiente = {
       id: Date.now(),
@@ -181,16 +151,14 @@ btnFormulario.addEventListener("click", async (e) => {
       plano: selectInput,
       avatar: gerandoAvatar(nomeInput, sobrenomeInput, selectInput),
     };
-    await aguardarTempo(2000).then(() => {
+    await aguardarTempo(4000).then(() => {
       ocultarLoading();
     });
-
 
     atualizarClientesCadastrados(novoCLiente);
     armazenarCadastro();
     renderizarCadastros();
     renderizarResultadoMensagem("Cliente cadastrado com sucesso!");
-
 
     // Limpar campos do formulário
     document.querySelector("#nome").value = "";
@@ -211,26 +179,18 @@ btnFormulario.addEventListener("click", async (e) => {
   }
 });
 
-
-
-
 // ----------------------
 // Atualizar o array de clientes cadastrados com os novos clientes a cada cadastro
 // ----------------------
-
 
 function atualizarClientesCadastrados(novoCliente) {
   clientesCadastrados.push(novoCliente);
   console.log(clientesCadastrados);
 }
 
-
-
-
 // ----------------------
 // Armazenar o cadastro no local storage a cada novo cliente cadastrado
 // ----------------------
-
 
 function armazenarCadastro() {
   localStorage.setItem(
@@ -239,23 +199,18 @@ function armazenarCadastro() {
   );
 }
 
-
 // ----------------------
 // Inserir os cards na tela a partir do Array de clientes cadastrados
 // ----------------------
 
-
 function renderizarCadastros() {
   let painelCard = document.querySelector(".card-painel");
 
-
   painelCard.innerHTML = "";
-
 
   for (let i of clientesCadastrados) {
     const card = document.createElement("ul");
     card.classList.add("card-cadastro");
-
 
     const avatarUrl =
       i.avatar ||
@@ -267,7 +222,6 @@ function renderizarCadastros() {
             : "cd7f32"
       }&color=fff`;
 
-
     card.innerHTML = `<li class="card-item">Cliente:</li>
                     <li class="Card-dados card-nome">${i.nome}</li>
                     <li class="card-dados">${i.email}</li>
@@ -277,11 +231,9 @@ function renderizarCadastros() {
                     `;
     renderizarCardPlano(i.plano, card);
 
-
     painelCard.appendChild(card);
   }
 }
-
 
 function renderizarCardPlano(plano, card) {
   switch (plano.toLowerCase()) {
@@ -303,24 +255,21 @@ function renderizarCardPlano(plano, card) {
   }
 }
 
-
 function gerandoAvatar(nome = "", sobrenome = "", plano = "") {
   const url = `https://ui-avatars.com/api/?name=${nome.replace(/ /g, "+")}+${sobrenome}&size=50&background=${plano === "gold" ? "e5ca2e" : plano === "silver" ? "C0C0C0" : "cd7f32"}&color=fff`;
-
 
   const avatarElem = document.querySelector("#avatar");
   if (avatarElem) {
     avatarElem.src = url;
   }
 
-
   return url;
 }
-
 
 // ----------------------
 // Mensagens de resultado (sucesso ou erro)
 // ----------------------
+
 function renderizarResultadoMensagem(mensagem, sucesso = true) {
   const mensagemElemento = document.querySelector("#mensagem-resultado");
   mensagemElemento.style.display = "block";
@@ -331,11 +280,9 @@ function renderizarResultadoMensagem(mensagem, sucesso = true) {
   });
 }
 
-
 // ----------------------
 // Remover cadastro
 // ----------------------
-
 
 painelCards.addEventListener("click", (evento) => {
   if (evento.target.classList.contains("btn-card")) {
@@ -343,7 +290,6 @@ painelCards.addEventListener("click", (evento) => {
     removerCadastro(email);
   }
 });
-
 
 function removerCadastro(email) {
   const index = clientesCadastrados.findIndex(
@@ -356,20 +302,17 @@ function removerCadastro(email) {
   renderizarCadastros();
 }
 
-
 // ----------------------
 // Pesquisa de cliente por nome ou e-mail
 // ----------------------
-campoBusca.addEventListener("input", pesquisarCliente);
 
+campoBusca.addEventListener("input", pesquisarCliente);
 
 function pesquisarCliente() {
   const termo = campoBusca.value.toLowerCase();
 
-
   const painelCard = document.querySelector(".card-painel");
   painelCard.innerHTML = "";
-
 
   // Filtra clientes pelo nome ou email
   const filtrados = clientesCadastrados.filter(
@@ -377,7 +320,6 @@ function pesquisarCliente() {
       cliente.nome.toLowerCase().includes(termo) ||
       cliente.email.toLowerCase().includes(termo),
   );
-
 
   // Renderiza apenas os filtrados
   for (let i of filtrados) {
@@ -395,14 +337,12 @@ function pesquisarCliente() {
   }
 }
 
-
 // Consulta o CEP via API ViaCEP e preenche os campos automaticamente, além de validar o CEP e mostrar mensagens de erro ou sucesso
+
 function consultarCEP(cep) {
   const cepInput = document.querySelector("#cep");
 
-
   cep = cep.replace(/\D/g, "");
-
 
   if (cep.length !== 8) {
     //  mostrarErro();CONFIRMAR PARA DELETAR DE VEZ
@@ -410,32 +350,25 @@ function consultarCEP(cep) {
     return Promise.reject(new Error("CEP deve conter 8 dígitos."));
   }
 
-
   mostrarLoading("Consultando CEP...");
-
 
   return fetch(`https://viacep.com.br/ws/${cep}/json/`)
     .then((response) => response.json())
     .then((data) => {
-      if (data.erro) {
+      if (data.err) {
         mostrarCamposEndereco(false);
-        throw new Error("CEP não encontrado");
       }
-
 
       // Aguarda 5 segundos para validação do CEP
       return aguardarTempo(5000).then(() => {
         ocultarLoading();
-
 
         document.querySelector("#rua").value = data.logradouro || "";
         document.querySelector("#bairro").value = data.bairro || "";
         document.querySelector("#cidade").value = data.localidade || "";
         document.querySelector("#estado").value = data.uf || "";
 
-
         mostrarCamposEndereco(true);
-
 
         return data;
       });
@@ -446,19 +379,16 @@ function consultarCEP(cep) {
     });
 }
 
-
 // ----------------------
 // Filtro do tipo de plano
 // ----------------------
-filtroTipo.addEventListener("change", filtrarPlanos);
 
+filtroTipo.addEventListener("change", filtrarPlanos);
 
 function filtrarPlanos() {
   const tipoSelecionado = filtroTipo.value;
 
-
   const cards = document.querySelectorAll(".card-cadastro");
-
 
   cards.forEach((card) => {
     const plano = card.querySelector(".card-dados:last-child").textContent;
@@ -473,15 +403,14 @@ function filtrarPlanos() {
   });
 }
 
-
 // ----------------------
 // Implementacao API CEP para preenchimento automatico do endereco
 // ----------------------
+
 function mostrarCamposEndereco(mostrar) {
   const seletores =
     '#rua, #bairro, #cidade, #estado, label[for="rua"], label[for="bairro"], label[for="cidade"], label[for="estado"]';
   const elementos = document.querySelectorAll(seletores);
-
 
   elementos.forEach(function (el) {
     if (mostrar) {
@@ -493,22 +422,11 @@ function mostrarCamposEndereco(mostrar) {
     }
   });
 }
-// function mostrarErro() {
-// const cepInput = document.querySelector("#cep");
-// cepInput.style.borderColor = "red"; document.querySelector("#rua").value // = "";
-// document.querySelector("#bairro").value = "";
-// document.querySelector("#cidade").value = "";
-// document.querySelector("#estado").value = "";
-// }
-
-
-//renderizarResultadoMensagem("CEP inválido ou não encontrado.", false);
-//}
-
 
 //==================
 // Simulação de análise de crédito para clientes do plano Gold
 //==================
+
 function simularAnaliseCredito(plano) {
   return new Promise((resolve, reject) => {
     mostrarLoading("Realizando análise de crédito...");
@@ -530,19 +448,8 @@ function simularAnaliseCredito(plano) {
   });
 }
 
-
-// function mostrarStatus(mensagem) {
-//  const status = document.querySelector("#status");
-//  status.textContent = mensagem;
-
-
-//  aguardarTempo(5000).then(() => {
-//    status.textContent = "";
-//  });
-// }
-
-
 // Mostra área de loading com mensagem
+
 function mostrarLoading(mensagem) {
   const loading = document.querySelector("#status");
   const loadingIcon = document.querySelector("#status-icon");
@@ -554,8 +461,8 @@ function mostrarLoading(mensagem) {
   loading.style.display = "block";
 }
 
+//Ocultar área de loading
 
-//Oculta área de loading
 function ocultarLoading() {
   const loading = document.querySelector("#status");
   const loadingIcon = document.querySelector("#status-icon");
